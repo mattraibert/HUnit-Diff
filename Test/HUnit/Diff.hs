@@ -20,7 +20,7 @@ module Test.HUnit.Diff ((@?==), (@==?)) where
 import Data.Functor        ( (<$>) )
 
 import Data.Algorithm.Diff ( getDiff, Diff(Both, First, Second) )
-import System.Console.ANSI ( Color(Green, Red), ColorIntensity(Dull)
+import System.Console.ANSI ( Color(Green, Red, White), ColorIntensity(Dull)
                            , ConsoleLayer(Foreground), SGR(SetColor, Reset)
                            , setSGRCode )
 import Test.HUnit          ( Assertion, assertBool, (@?=), (@=?) )
@@ -33,7 +33,7 @@ x @?== y =
   where
     msg       = unlines $ fmt <$> getDiff (lines . groom $ x)
                                           (lines . groom $ y)
-    fmt (Both s _) =               ' ' : s
+    fmt (Both s _) = color White $ ' ' : s
     fmt (First s)  = color Green $ '+' : s
     fmt (Second s) = color Red   $ '-' : s
     color c s = setSGRCode [SetColor Foreground Dull c]
