@@ -19,7 +19,7 @@ module Test.HUnit.Diff ((@?==), (@==?)) where
 
 import Data.Functor        ( (<$>) )
 
-import Data.Algorithm.Diff ( getDiff, DI(B, F, S) )
+import Data.Algorithm.Diff ( getDiff, Diff(Both, First, Second) )
 import System.Console.ANSI ( Color(Green, Red), ColorIntensity(Dull)
                            , ConsoleLayer(Foreground), SGR(SetColor, Reset)
                            , setSGRCode )
@@ -33,9 +33,9 @@ x @?== y =
   where
     msg       = unlines $ fmt <$> getDiff (lines . groom $ x)
                                           (lines . groom $ y)
-    fmt (B,s) =               ' ' : s
-    fmt (F,s) = color Green $ '+' : s
-    fmt (S,s) = color Red   $ '-' : s
+    fmt (Both s _) =               ' ' : s
+    fmt (First s)  = color Green $ '+' : s
+    fmt (Second s) = color Red   $ '-' : s
     color c s = setSGRCode [SetColor Foreground Dull c]
                 ++ s ++
                 setSGRCode [Reset]

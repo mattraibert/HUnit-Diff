@@ -18,8 +18,8 @@ Source-Repository head
 
 Library
   Exposed-modules:     Test.HUnit.Diff
-  Build-depends:       ansi-terminal == 0.5.*,
+  Build-depends:       ansi-terminal == 0.6.*,
                        base == 4.*,
-                       Diff == 0.1.*,
+                       Diff == 0.3.*,
                        groom == 0.1.*,
                        HUnit == 1.2.*
